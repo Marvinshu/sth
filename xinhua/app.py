@@ -1,13 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
+import sys
 import tornado.ioloop
 import tornado.web
 
 from config import PORT, DEBUG, HOST, COOKIE_SECRET
 import _url  # noqa
 from misc._route import route
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 
 def make_app():
