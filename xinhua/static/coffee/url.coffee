@@ -16,8 +16,6 @@ $('button[type="button"]').click ->
         data: data
         success: (r)->
             if r.result
-                $('select[name="cata"] option:first').attr('selected',true)
-                $('select[name="source"] option:first').attr('selected',true)
                 $('input[name="url"]').val('')
                 $('input[name="title"]').val('')
                 $.tip("添加成功！<br>#{url}")

@@ -114,8 +114,8 @@ class Spider():
 
 
 def main():
-    url = 'http://weibo.com/p/10080828a31453726297d1c6712f7ffcbdb275?from=faxian_huati'
-    print Spider().weibo_spider(url)
+    url = 'http://wenku.baidu.com/view/135ff9fc1eb91a37f1115cab'
+    print Spider().wenku_spider(url)
 
 
 if __name__ == '__main__':
