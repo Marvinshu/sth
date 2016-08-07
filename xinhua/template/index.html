@@ -1,3 +1,6 @@
+<%!
+    from config import STATIC_HOST
+%>
 <%inherit file="_base.html"/>
 <%block name="title">首页</%block>
 <%block name="css">
@@ -23,7 +26,8 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu pull-right" role="menu">
-                                <li><a href="#">导出</a> </li>
+                                <li><a href="${STATIC_HOST}/report/data_view.csv">导出真实报表</a> </li>
+                                <li><a href="${STATIC_HOST}/report/data_view_.csv">导出修改后报表</a> </li>
                             </ul>
                         </div>
                     </div>
