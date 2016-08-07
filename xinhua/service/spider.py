@@ -6,6 +6,7 @@ import _env  # noqa
 import sys
 import requests
 import json
+import re
 from extract import extract
 
 reload(sys)
@@ -38,10 +39,11 @@ class Spider():
         r = requests.get(url, cookies=cookies)
 
         if r.status_code == 200:
-            count = extract('<strong class=\\"W_f14\\">', '<\/strong>', r.text)
-            if not count:
-                count = extract('<strong class=\\"W_f12\\">', '<\/strong>', r.text)
-            # 需要转换单位
+            p = '<strong class=\\\\"W_f1[0-9]\\\\">(.*?)<\\\/strong>'
+            m = re.findall(p, r.text)
+            if m:
+                count = m[0]
+
             return self.deal_unit(count)
 
     def wenku_spider(self, url):
@@ -112,8 +114,7 @@ class Spider():
 
 
 def main():
-    url = 'http://weibo.com/p/100808dc16b2f5eb002e9558b916f31b59cb6a?k=%E4%B8%80%E5%9D%97%E6%8A%95%E5%90%A7&from=501&_from_=huati_topic'
-    url = 'http://weibo.com/p/10080811f78df754cd78be77554d8a39fe6793?from=faxian_huati'
+    url = 'http://weibo.com/p/10080828a31453726297d1c6712f7ffcbdb275?from=faxian_huati'
     print Spider().weibo_spider(url)
 
 
