@@ -66,7 +66,7 @@ def export_report(view):
     for cata in Cata.select():
         d[cata.cata][cata.source] = dict(cata=cata.cata_cn, view=getattr(cata, view))
 
-    header = '#,微博热点,百度文库,百度知道,天涯论坛,爱奇艺,优酷,腾讯视频\n'
+    header = '#,微博热点,百度文库,百度知道,天涯论坛,爱奇艺,优酷,腾讯视频\n'.encode("gb2312")
     path_ = path.join(path.dirname(path.abspath(__file__)), '../static/report/')
     fi = '{path}data_{view}.csv'.format(path=path_, view=view)
     with open(fi, 'w+') as f:
@@ -82,7 +82,7 @@ def export_report(view):
                 youku=v.get('youku').get('view', ''),
                 tengxun=v.get('tengxun').get('view', '')
             )
-            f.write('{cata},{weibo},{wenku},{zhidao},{tianya},{iqiyi},{youku},{tengxun}\n'.format(**d))
+            f.write('{cata},{weibo},{wenku},{zhidao},{tianya},{iqiyi},{youku},{tengxun}\n'.format(**d).encode("gb2312"))
 
 
 def main():
