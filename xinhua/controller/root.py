@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
+import _env  # noqa
 from _base import Base_, Base
 from misc._route import route
 from model.url import URL
+from model.cata import Cata
+from service.service import get_template_dict
 
 
 @route('/login')
@@ -16,7 +18,10 @@ class Login(Base_):
 @route('/')
 class Index(Base):
     def get(self):
-        self.render()
+        d = get_template_dict()
+        for cata in Cata.select():
+            d[cata.cata][cata.source] = dict(cata=cata.cata_cn, view=cata.view)
+        self.render(data=d)
 
 
 @route('/url')

@@ -34,11 +34,14 @@ class Spider():
             WBtopGlobal_register_version="90c4d37e0334154f",
         )
 
+        url = "{url}&retcode=6102".format(url=url)
         r = requests.get(url, cookies=cookies)
 
         if r.status_code == 200:
+            count = extract('<strong class=\\"W_f14\\">', '<\/strong>', r.text)
+            if not count:
+                count = extract('<strong class=\\"W_f12\\">', '<\/strong>', r.text)
             # 需要转换单位
-            count = extract('<strong class=\\"W_f12\\">', '<\/strong>', r.text)
             return self.deal_unit(count)
 
     def wenku_spider(self, url):
@@ -79,20 +82,22 @@ class Spider():
 
     def youku_spider(self, url):
         ''' 优酷视频爬虫 '''
-        r = requests.get(url)
+        url_ = "https://openapi.youku.com/v2/videos/show_basic.json?video_url={url}&client_id=66655b02396537f4".format(url=url)
+        r = requests.get(url_)
         if r.status_code == 200:
-            v_id = extract("var videoId = '", "';", r.text)
-            url_ = 'http://v.youku.com/QVideo/~ajax/getVideoPlayInfo?id={v_id}&type=vv'.format(v_id=v_id)
-            r = requests.get(url_)
-            if r.status_code == 200:
-                data = json.loads(r.text)
-                return data.get('vv', 0)
+            data = json.loads(r.text)
+            return data.get('view_count', 0)
 
     def tengxun_spider(self, url):
         ''' 腾讯视频爬虫 '''
         r = requests.get(url, )
         if r.status_code == 200:
-            count = extract('class="num">', "</em>", r.text).encode('ISO-8859-1').encode('utf-8')
+            count = extract('class="num">', "</em>", r.text)
+
+            # 腾讯视频变态的编码不确定
+            if r.encoding == 'ISO-8859-1':
+                count = count.encode('ISO-8859-1').encode('utf-8')
+
             return self.deal_unit(count)
 
     def deal_unit(self, count):
@@ -107,8 +112,9 @@ class Spider():
 
 
 def main():
-    url = 'http://v.youku.com/v_show/id_XMTY3NDUwODE5Ng==.html?f=27840131&from=y1.3-idx-beta-1519-23042.223465.4-1'
-    print Spider().youku_spider(url)
+    url = 'http://weibo.com/p/100808dc16b2f5eb002e9558b916f31b59cb6a?k=%E4%B8%80%E5%9D%97%E6%8A%95%E5%90%A7&from=501&_from_=huati_topic'
+    url = 'http://weibo.com/p/10080811f78df754cd78be77554d8a39fe6793?from=faxian_huati'
+    print Spider().weibo_spider(url)
 
 
 if __name__ == '__main__':

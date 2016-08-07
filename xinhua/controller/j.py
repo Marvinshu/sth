@@ -7,6 +7,7 @@ import hashlib
 from _base import JsonBase
 from misc._route import route
 from model.url import URL as URL_
+from model.cata import Cata as Cata_
 
 
 @route('/j/login')
@@ -54,3 +55,23 @@ class URL_rm(JsonBase):
                 url.delete_instance()
 
         self.finish()
+
+
+@route('/j/cata')
+class Cata(JsonBase):
+    def post(self):
+        cata = self.get_argument('cata', '')
+
+        cata_ = ''
+        li = list()
+
+        for c in Cata_.select().where(Cata_.cata == cata):
+            li.append(dict(name=c.source_cn, value=c.view))
+            cata_ = c.cata_cn
+
+        d = dict(
+            li=li,
+            cata=cata_
+        )
+
+        self.finish(data=d)

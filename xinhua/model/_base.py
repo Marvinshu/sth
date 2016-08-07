@@ -31,4 +31,5 @@ def init_db():
 def drop_table():
     from model.user import User
     from model.url import URL
-    db.drop_tables([User, URL])
+    from model.cata import Cata
+    db.drop_tables([User, URL, Cata])

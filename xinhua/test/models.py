@@ -17,12 +17,22 @@ def main():
         cata4="分类4",
         cata5="分类5"
     )
-    for k, v in d.iteritems():
-        d_ = dict(
-            title=k,
-            name=v,
+    for k in d.keys():
+        d_source = dict(
+            weibo="微博热点",
+            wenku="百度文库",
+            zhidao="百度知道",
+            tianya="天涯论坛",
+            iqiyi="爱奇艺",
+            youku="优酷",
+            tengxun="腾讯视频",
         )
-        Cata.create(**d_)
+        for k1 in d_source.keys():
+            d_ = dict(
+                cata=k,
+                source=k1,
+            )
+            Cata.create(**d_)
 
 
 if __name__ == '__main__':
