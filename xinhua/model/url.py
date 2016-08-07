@@ -16,7 +16,7 @@ class URL(Base):
     cata = CharField(index=True)
     source = CharField(index=True)
     view = BigIntegerField(default=0)
-    view_ = BigIntegerField(default=0)
+    view_ = BigIntegerField(default=0)  # 手动增量
 
     @property
     def cata_cn(self):
@@ -29,3 +29,7 @@ class URL(Base):
     @property
     def ti(self):
         return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(self.create_time))
+
+    @property
+    def view__(self):
+        return self.view + self.view_

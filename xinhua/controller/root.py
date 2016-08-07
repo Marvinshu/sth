@@ -20,7 +20,7 @@ class IndexShow(Base_):
     def get(self):
         d = get_template_dict()
         for cata in Cata.select():
-            d[cata.cata][cata.source] = dict(cata=cata.cata_cn, view=cata.view_)
+            d[cata.cata][cata.source] = dict(cata=cata.cata_cn, view=cata.view__)
         self.render(data=d)
         self.render()
 

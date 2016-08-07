@@ -32,7 +32,6 @@ def get_url_view_count():
                 if view:
                     view = int(view)
                     url.view = view
-                    url.view_ = view
                     url.save()
                     data[url.cata][url.source] += view
             except Exception as e:
@@ -59,7 +58,6 @@ def save_statistic(d):
             if cata:
                 v1 = int(v1)
                 cata.view = v1
-                cata.view_ = v1
                 cata.save()
 
 
@@ -90,7 +88,7 @@ def export_report(view):
 def main():
     d = get_url_view_count()
     save_statistic(d)
-    for view in ['view', 'view_']:
+    for view in ['view', 'view__']:
         export_report(view)
 
 

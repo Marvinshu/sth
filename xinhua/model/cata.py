@@ -11,7 +11,7 @@ class Cata(Base):
     cata = CharField(index=True)
     source = CharField(index=True)
     view = BigIntegerField(default=0)
-    view_ = BigIntegerField(default=0)
+    view_ = BigIntegerField(default=0)  # 手动增量
 
     @property
     def cata_cn(self):
@@ -20,3 +20,7 @@ class Cata(Base):
     @property
     def source_cn(self):
         return d_source.get(self.source)
+
+    @property
+    def view__(self):
+        return self.view + self.view_
