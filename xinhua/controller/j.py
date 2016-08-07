@@ -51,6 +51,6 @@ class URL_rm(JsonBase):
         if id:
             url = URL_.get(URL_.id == id)
             if url:
-                url.delete().query()
+                url.delete_instance()
 
         self.finish()
