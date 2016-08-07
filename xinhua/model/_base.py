@@ -24,7 +24,8 @@ class Base(Model):
 def init_db():
     from model.user import User
     from model.url import URL
-    db.create_tables([User, URL])
+    from model.cata import Cata
+    db.create_tables([User, URL, Cata])
 
 
 def drop_table():

@@ -3,7 +3,7 @@
 
 import time
 from model._base import Base
-from peewee import CharField, IntegerField, PrimaryKeyField
+from peewee import CharField, IntegerField, PrimaryKeyField, BigIntegerField
 
 
 class URL(Base):
@@ -13,7 +13,8 @@ class URL(Base):
     create_time = IntegerField(index=True, default=int(time.time()))
     cata = CharField(index=True)
     source = CharField(index=True)
-    view = IntegerField(default=0)
+    view = BigIntegerField(default=0)
+    view_ = BigIntegerField(default=0)
 
     @property
     def cata_cn(self):
