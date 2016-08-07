@@ -105,4 +105,31 @@
     }
   });
 
+  $("#btn-mod").click(function() {
+    var li;
+    li = Array();
+    $(".txt-mod").each(function() {
+      var id, val;
+      val = $(this).val();
+      if (val) {
+        id = $(this).attr('id');
+        return li.push({
+          'id': id,
+          'val': val
+        });
+      }
+    });
+    if (li.length > 0) {
+      return $.only_ajax({
+        url: "/j/view/add",
+        data: {
+          li: JSON.stringify(li)
+        },
+        success: function(r) {
+          return $.tip('修改成功！');
+        }
+      });
+    }
+  });
+
 }).call(this);

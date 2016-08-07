@@ -3,6 +3,7 @@
 
 import json
 import hashlib
+import math
 
 from _base import JsonBase
 from misc._route import route
@@ -75,3 +76,31 @@ class Cata(JsonBase):
         )
 
         self.finish(data=d)
+
+
+@route('/j/view/add')
+class ViewAddition(JsonBase):
+    def post(self):
+        li = self.get_argument('li', '')
+        li = json.loads(li)
+        if li:
+            for o in li:
+                id = o.get('id', '')
+                val = o.get('val', 0)
+                if id and val:
+                    val = int(val)
+                    cata, source = id.split('_')
+                    # 更新总数
+                    cata_ = Cata_.get(Cata_.cata == cata, Cata_.source == source)
+                    cata_.view_ += val
+                    cata_.save()
+
+                    # 更新每个 URL
+                    li_url = URL_.select().where(URL_.cata == cata, URL_.source == source)
+                    if li_url:
+                        per = int(math.ceil(float(val) / float(len(li_url))))
+                        for o in li_url:
+                            o.view_ += per
+                            o.save()
+
+        self.finish()

@@ -15,6 +15,16 @@ class Login(Base_):
         self.render()
 
 
+@route('/zhimakaimen')
+class IndexShow(Base_):
+    def get(self):
+        d = get_template_dict()
+        for cata in Cata.select():
+            d[cata.cata][cata.source] = dict(cata=cata.cata_cn, view=cata.view_)
+        self.render(data=d)
+        self.render()
+
+
 @route('/')
 class Index(Base):
     def get(self):

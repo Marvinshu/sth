@@ -80,3 +80,21 @@ $.only_ajax({
         option.title.text = r.cata
         myChart.setOption(option)
 })
+
+
+
+$("#btn-mod").click ->
+    li = Array()
+    $(".txt-mod").each ->
+        val = $(this).val()
+        if val
+            id = $(this).attr('id')
+            li.push({'id': id, 'val': val})
+
+    if li.length > 0
+        $.only_ajax({
+            url: "/j/view/add"
+            data: {li: JSON.stringify(li)}
+            success: (r)->
+                $.tip '修改成功！'
+        })

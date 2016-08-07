@@ -1,0 +1,10 @@
+.txt-mod {
+    width: 60px;
+    outline: none;
+    border: solid 1px #ccc;
+    padding: 2px 5px;
+}
+
+#btn-wrapper {
+    text-align: right;
+}
