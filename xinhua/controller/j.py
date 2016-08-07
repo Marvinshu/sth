@@ -62,12 +62,13 @@ class URL_rm(JsonBase):
 class Cata(JsonBase):
     def post(self):
         cata = self.get_argument('cata', '')
+        view = self.get_argument('view', 'view')
 
         cata_ = ''
         li = list()
 
         for c in Cata_.select().where(Cata_.cata == cata):
-            li.append(dict(name=c.source_cn, value=c.view))
+            li.append(dict(name=c.source_cn, value=getattr(c, view)))
             cata_ = c.cata_cn
 
         d = dict(
