@@ -1,0 +1,53 @@
+
+$.app.controller('TaskCtrl', ($scope)->
+    $scope.o = {
+        todo: null
+        doing: null
+        done: null
+    }
+    $scope.todo = {
+        title: ''
+        type: 1
+    }
+
+    $scope.edit = false
+
+    $scope.insert = (type)->
+        $scope.edit = true
+        setTimeout(->
+            $("#text-#{type}").focus()
+        , 100)
+        false
+    
+    $scope.cancel_add = (type)->
+        $scope.edit = false
+
+    $scope.add = ()->
+        $.only_ajax({
+            method: 'POST'
+            url: '/j/task'
+            data: $scope.todo
+            success: ->
+                $.only_ajax({
+                    url: "/j/task/list?type=1",
+                    success: (r)->
+                        v = angular.element($("[ng-controller=TaskCtrl]")).scope()
+                        v.o.todo = r.data
+                        v.$apply()
+                })
+
+        })
+
+        false
+
+)
+
+
+## $.only_ajax({
+##     url: "/j/task/list?type=1",
+##     success: (r)->
+##         v = angular.element($("[ng-controller=TaskCtrl]")).scope()
+##         v.o.todo = r.data
+##         v.$apply()
+## })
+## 

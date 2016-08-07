@@ -7,7 +7,6 @@
 
 body{
     background-color: #fafafa;
-    padding: 18px;
         animation: fadein 0.9s ease-out;
    -moz-animation: fadein 0.9s ease-out; /* Firefox */
 -webkit-animation: fadein 0.9s ease-out;  /* Safari 和 Chrome */
@@ -26,6 +25,10 @@ a:hover{
    -moz-transition: all 0.3s ease-out;
 -webkit-transition: all 0.3s ease-out;
      -o-transition: all 0.3s ease-out;   
+}
+
+#msg {
+    display: none;
 }
 
 .fn-t-align-c{
@@ -49,6 +52,13 @@ a:hover{
     border: solid 1px #ddd;
 }
 
+.page-header {
+    margin: 15px 0 10px;
+}
+
+.fa {
+    line-height: 18px;
+}
 
 /********* animation *******/
 @keyframes fadein {

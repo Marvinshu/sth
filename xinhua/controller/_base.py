@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import json
 import mako.lookup
 import mako.template
 import tornado.web
@@ -11,7 +12,7 @@ from config import STATIC_HOST, APP
 from model.user import User
 
 
-class Base(tornado.web.RequestHandler):
+class Base_(tornado.web.RequestHandler):
     def initialize(self):
         template_path = os.path.join(os.path.dirname(__file__), '..', 'template')
         self.lookup = mako.lookup.TemplateLookup(directories=template_path,
@@ -38,7 +39,7 @@ class Base(tornado.web.RequestHandler):
 
     def get_current_user(self):
         j = self.get_secure_cookie("user")
-        return User.from_dict(j)
+        return json.loads(j)
 
     def load_js(self, src):
         return '{static_host}/js/{src}'.format(static_host=STATIC_HOST, src=src)
@@ -58,6 +59,12 @@ class Base(tornado.web.RequestHandler):
                     underline_format += _s_ if _s_.islower() else '_' + _s_.lower()
 
         return underline_format
+
+
+class Base(Base_):
+    def prepare(self):
+        if not self.current_user:
+            self.redirect('/login')
 
 
 class JsonBase(tornado.web.RequestHandler):

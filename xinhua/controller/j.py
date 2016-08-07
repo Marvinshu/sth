@@ -1,27 +1,56 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import json
+import hashlib
+
 from _base import JsonBase
 from misc._route import route
-
-from model.task import Task
-
-
-@route('/j/task/list')
-class TaskList(JsonBase):
-    def get(self):
-        type_ = self.get_argument('type')
-        li = Task.select().where(Task.type == type_).order_by(Task.index)
-        li = [o.to_dict() for o in li]
-
-        self.finish(dict(data=li))
+from model.url import URL as URL_
 
 
-@route('/j/task')
-class Task_(JsonBase):
+@route('/j/login')
+class Login(JsonBase):
     def post(self):
-        type_ = self.get_argument('type')
-        title = self.get_argument('title')
-        Task.create(type=type_, title=title)
+        username = self.get_argument('username')
+        password = self.get_argument('password')
+        if username == 'tonghs' and password == 'tonghs':
+            user = dict(
+                username=username,
+                passowrd=password
+            )
+            self.set_secure_cookie("user", json.dumps(user))
+            ret = dict(login=True, msg="")
+        else:
+            ret = dict(login=False, msg="用户名密码错误")
+
+        self.finish(ret)
+
+
+@route('/j/url')
+class URL(JsonBase):
+    def post(self):
+        url = self.get_argument('url', '')
+        if url:
+            data = {k: ''.join(v) for k, v in self.request.arguments.iteritems()}
+            url_md5 = hashlib.md5(url).hexdigest()
+            data.update(url_md5=url_md5)
+            URL_.create(**data)
+
+            ret = dict(result=True)
+        else:
+            ret = dict(result=False, msg="链接不可为空")
+
+        self.finish(ret)
+
+
+@route('/j/url/rm')
+class URL_rm(JsonBase):
+    def post(self):
+        id = self.get_argument('id', '')
+        if id:
+            url = URL_.get(URL_.id == id)
+            if url:
+                url.delete().query()
 
         self.finish()

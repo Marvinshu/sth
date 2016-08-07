@@ -6,8 +6,8 @@ from model._base import drop_table, init_db
 
 
 def main():
-    drop_table()
     init_db()
+    drop_table()
 
 
 if __name__ == '__main__':

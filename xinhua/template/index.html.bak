@@ -1,0 +1,102 @@
+<%inherit file="_base.html"/>
+<%block name="css">
+    <link rel="stylesheet" href="${load_css('index.css')}">
+</%block>
+<div class="row" ng-controller="TaskCtrl">
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="box">
+                    <div class="head">
+                        TODO
+                    </div>
+                    <div class="list-view" id="todo">
+                        <div class="item list-group-item" ng-repeat="x in o.todo">
+                            <input type='checkbox'>
+                            {{x.title}}
+                            <div class="dropdown menu">
+                                <span class="dropdown-toggle"data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+                                </span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">删除</a></li>
+                                    <li><a href="#">归档</a></li>
+                                    <li><a href="#">开始进行</a></li>
+                                    <li><a href="#">完成</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item" ng-if="edit">
+                        <textarea id="text-1" autofocus ng-model="todo.title"></textarea>
+                        <div class="fn-t-align-r">
+                            <button type="button" class="btn btn-primary" ng-click="add()">确定</button>
+                            &nbsp;
+                            <button type="button" class="btn btn-default" ng-click="cancel_add(1)">取消</button>
+                        </div>
+                    </div>
+                    <div class="addition" ng-click="insert(1)">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="box">
+                    <div class="head">
+                        DOING
+                    </div>
+                    <div class="list-view" id="doing">
+                        <div class="item list-group-item" ng-repeat="x in o.doing">
+                            <input type='checkbox'>
+                            {{x.title}}
+                        </div>
+                    </div>
+                    <div class="addition">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="box">
+                    <div class="head">
+                        DONE
+                    </div>
+                    <div class="list-view" id="done">
+                        <div class="item list-group-item" ng-repeat="x in o.done">
+                            <input type='checkbox'>
+                            {{x.title}}
+                        </div>
+                    </div>
+                    <div class="addition">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="box timeline">
+            <div class="head">
+                动态
+            </div>
+            <div class="content">
+                <span class="member">tonghs</span>: 完成任务 #123 <span class="time">（2014-12-04 12:00:00）</span>
+            </div>
+            <div class="input">
+                <div class="row">
+                    <div class="col-md-10">
+                        <input type="text">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-primary">发送</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%block name="js">
+    <script src="${load_js('index.js')}"></script>
+</%block>
