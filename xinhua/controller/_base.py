@@ -39,7 +39,7 @@ class Base_(tornado.web.RequestHandler):
 
     def get_current_user(self):
         j = self.get_secure_cookie("user")
-        return json.loads(j)
+        return json.loads(j) if j else None
 
     def load_js(self, src):
         return '{static_host}/js/{src}'.format(static_host=STATIC_HOST, src=src)
