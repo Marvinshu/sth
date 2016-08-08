@@ -44,3 +44,16 @@ class UrlMgr(Base):
     def get(self):
         url_li = URL.select().order_by(URL.create_time.desc())
         self.render(url_li=url_li)
+
+
+@route('/user_mgr')
+class UserMgr(Base):
+    def get(self):
+        self.render()
+
+
+@route('/logout')
+class Logout(Base):
+    def get(self):
+        self.clear_cookie('user')
+        self.redirect('/')

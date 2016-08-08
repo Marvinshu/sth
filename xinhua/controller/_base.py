@@ -39,7 +39,7 @@ class Base_(tornado.web.RequestHandler):
 
     def get_current_user(self):
         j = self.get_secure_cookie("user")
-        return json.loads(j) if j else None
+        return User.from_dict(json.loads(j)) if j else None
 
     def load_js(self, src):
         return '{static_host}/js/{src}'.format(static_host=STATIC_HOST, src=src)
@@ -68,6 +68,10 @@ class Base(Base_):
 
 
 class JsonBase(tornado.web.RequestHandler):
+    def get_current_user(self):
+        j = self.get_secure_cookie("user")
+        return User.from_dict(json.loads(j)) if j else None
+
     def finish(self, data=None):
         if data:
             if not isinstance(data, str):

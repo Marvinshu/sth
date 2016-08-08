@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import hashlib
 from config import MYSQL
 from peewee import Model, MySQLDatabase
 from playhouse.shortcuts import model_to_dict, dict_to_model
@@ -25,7 +26,17 @@ def init_db():
     from model.user import User
     from model.url import URL
     from model.cata import Cata
+
+    # 创建表
     db.create_tables([User, URL, Cata])
+
+    # 新建用户
+    data = dict(
+        user="admin",
+        name="admin",
+        pwd=hashlib.md5('admin').hexdigest(),
+    )
+    User.create(**data)
 
 
 def drop_table():
