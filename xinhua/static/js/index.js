@@ -126,7 +126,10 @@
           li: JSON.stringify(li)
         },
         success: function(r) {
-          return $.tip('修改成功！');
+          $.tip('修改成功！');
+          return $(".txt-mod").each(function() {
+            return $(this).val('');
+          });
         }
       });
     }

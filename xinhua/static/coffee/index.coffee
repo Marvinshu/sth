@@ -97,4 +97,6 @@ $("#btn-mod").click ->
             data: {li: JSON.stringify(li)}
             success: (r)->
                 $.tip '修改成功！'
+                $(".txt-mod").each ->
+                    $(this).val('')
         })
