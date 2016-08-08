@@ -10,6 +10,7 @@ from misc._route import route
 from model.url import URL as URL_
 from model.cata import Cata as Cata_
 from model.user import User
+from service.service import export_report
 
 
 @route('/j/login')
@@ -132,5 +133,9 @@ class ViewAddition(JsonBase):
                         for o in li_url:
                             o.view_ += per
                             o.save()
+
+        # 重新生成报表
+        for view in ['view', 'view__']:
+            export_report(view)
 
         self.finish()
