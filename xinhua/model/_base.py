@@ -28,6 +28,7 @@ def init_db():
     from model.url import URL
     from model.cata import Cata
     from model.mod_log import ModLog
+    from misc.const import d_cata, d_source
 
     # 创建表
     db.create_tables([User, URL, Cata, ModLog])
@@ -39,6 +40,15 @@ def init_db():
         pwd=hashlib.md5('admin').hexdigest(),
     )
     User.create(**data)
+
+    # 创建交叉表
+    for k in d_cata.keys():
+        for k1 in d_source.keys():
+            d_ = dict(
+                cata=k,
+                source=k1,
+            )
+            Cata.create(**d_)
 
 
 def drop_table():
