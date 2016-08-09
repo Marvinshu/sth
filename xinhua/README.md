@@ -43,14 +43,19 @@
     ```
 
 5. 新建数据库
+
+	```
 	CREATE DATABASE `db_name` CHARACTER SET utf8 COLLATE utf8_general_ci;
+	```
 
 6. 初始化数据库
+	```
 	python test/models.py
+	```
 
 7. 配置 supervisor
 	* 根据需要修改 misc/conf/supervisor.conf 中的内容
-	* cd /etc/supervisor/conf.d
+	* ``` cd /etc/supervisor/conf.d ```
 	* ln -s YOUR-PATH/misc/conf/supervisor.conf xinhua.conf
 	* reload config file 或 重启 supervisor 服务
 
