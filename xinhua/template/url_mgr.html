@@ -22,7 +22,14 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    所有链接列表
+                    <b>
+                    % if cata or source:
+                        ${d_cata.get(cata, '')}&nbsp;${d_source.get(source, '')}
+                    % else:
+                        所有
+                    % endif
+                    </b>
+                    链接列表
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -102,7 +109,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">
-                                共 ${count} 条 
+                                共 <b>${page_count}</b> 页 <b>${count}</b> 条数据 , 每页最多显示 <b>${limit}</b> 条
                             </div>
                         </div>
                         <div class="col-sm-6">

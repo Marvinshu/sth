@@ -3,3 +3,4 @@ peewee
 MySQL-python
 mako
 requests
+pypinyin

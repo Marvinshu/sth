@@ -48,7 +48,7 @@ class UrlMgr(LoginHandler):
     def get(self):
         cata = self.get_argument('cata', None)
         source = self.get_argument('source', None)
-        limit = int(self.get_argument('limit', 20) or 20)
+        limit = int(self.get_argument('limit', 50) or 50)
         page = int(self.get_argument('page', 1) or 1)
 
         offset = (page - 1) * limit
@@ -68,7 +68,7 @@ class UrlMgr(LoginHandler):
         page_count = count / limit + 1
 
         self.render(url_li=url_li, url_=url,
-                    page_count=page_count,
+                    page_count=page_count, limit=limit,
                     page=page, count=count,
                     cata=cata, source=source)
 

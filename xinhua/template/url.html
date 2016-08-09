@@ -1,3 +1,7 @@
+<%!
+    from misc.const import d_source, d_cata
+%>
+
 <%inherit file="_base.html"/>
 <%block name="title">链接添加</%block>
 
@@ -25,11 +29,9 @@
                                         <div class="form-group">
                                             <label>分类</label>
                                             <select class="form-control" name="cata">
-                                                <option value="cata1">大师谈</option>
-                                                <option value="cata2">一点通</option>
-                                                <option value="cata3">风采录</option>
-                                                <option value="cata4">分类4</option>
-                                                <option value="cata5">分类5</option>
+                                                % for k, v in d_cata.iteritems():
+                                                <option value="${k}">${v}</option>
+                                                % endfor
                                             </select>
                                         </div>
                                     </div>
@@ -37,13 +39,9 @@
                                         <div class="form-group">
                                             <label>链接来源</label>
                                             <select class="form-control" name="source">
-                                                <option value="weibo">微博热点</option>
-                                                <option value="wenku">百度文库</option>
-                                                <option value="zhidao">百度知道</option>
-                                                <option value="tianya">天涯论坛</option>
-                                                <option value="iqiyi">爱奇艺</option>
-                                                <option value="youku">优酷</option>
-                                                <option value="tengxun">腾讯视频</option>
+                                                % for k, v in d_source.iteritems():
+                                                <option value="${k}">${v}</option>
+                                                % endfor
                                             </select>
                                         </div>
                                     </div>

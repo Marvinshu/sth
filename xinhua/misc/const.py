@@ -1,21 +1,26 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from collections import OrderedDict
+from pypinyin import lazy_pinyin
 
 d_source = dict(
-    weibo="微博热点",
-    wenku="百度文库",
-    zhidao="百度知道",
-    tianya="天涯论坛",
-    iqiyi="爱奇艺",
-    youku="优酷",
-    tengxun="腾讯视频",
+    weibo=u"微博热点",
+    wenku=u"百度文库",
+    zhidao=u"百度知道",
+    tianya=u"天涯论坛",
+    iqiyi=u"爱奇艺",
+    youku=u"优酷",
+    tengxun=u"腾讯视频",
 )
+d_source = OrderedDict(sorted(d_source.items(), key=lambda x: lazy_pinyin(x[1])[0]))
+
 
 d_cata = dict(
-    cata1="大师谈",
-    cata2="一点通",
-    cata3="风采录",
-    cata4="分类4",
-    cata5="分类5"
+    cata1=u"大师谈",
+    cata2=u"一点通",
+    cata3=u"风采录",
+    cata4=u"分类4",
+    cata5=u"分类5"
 )
+d_cata = OrderedDict(sorted(d_cata.items(), key=lambda x: lazy_pinyin(x[1])[0]))
