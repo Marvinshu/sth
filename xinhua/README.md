@@ -10,15 +10,24 @@
     * supervisor
 
 2. clone 代码
+	
+	```
     git clone https://github.com/tonghuashuai/sth.git YOUR-DIR
+	```
 	
 	此时你的 server 目录为 YOUR-DIR/xinhua，将所有配置中的 YOUR-PATH 替换为该值
 
 3. 进入代码目录，安装网站运行依赖
+
+	```
     sudo pip install -r requirements.txt
+	```
 
 4. 配置网站信息
+	
+	```
     cp config.sample.py config.py
+	```
 	
 	然后根据具体情况修改 config.py ，文件内容及说明:
 
@@ -49,20 +58,29 @@
 	```
 
 6. 初始化数据库
+
 	```
 	python test/models.py
 	```
 
 7. 配置 supervisor
 	* 根据需要修改 misc/conf/supervisor.conf 中的内容
-	* ``` cd /etc/supervisor/conf.d ```
-	* ln -s YOUR-PATH/misc/conf/supervisor.conf xinhua.conf
+	* 添加配置文件
+
+		``` 
+		cd /etc/supervisor/conf.d
+		ln -s YOUR-PATH/misc/conf/supervisor.conf xinhua.conf
+		 ```
 	* reload config file 或 重启 supervisor 服务
 
 8. 配置 nginx 反代
 	* 根据需要修改 misc/conf/nginx.conf 中的内容（端口、域名、路径）
-	* cd /etc/nginx/conf.d
-	* ln -s YOUR-PATH/misc/conf/nginx.conf xinhua.conf
-	* nginx -s reload
+	* 添加配置文件
+
+		``` 
+		cd /etc/nginx/conf.d
+		ln -s YOUR-PATH/misc/conf/nginx.conf xinhua.conf
+		nginx -s reload
+		```
 
 至此配置完成，可以根据配置的域名或 IP 访问了。
