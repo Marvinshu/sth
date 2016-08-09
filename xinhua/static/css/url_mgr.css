@@ -1,3 +1,17 @@
 .paginate_button a{
     margin: 0 5px;
 }
+
+th {
+    text-align: center;
+    font-weight: bold;
+}
+
+td {
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+td.center {
+    text-align: center;
+}
