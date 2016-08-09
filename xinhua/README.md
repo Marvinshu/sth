@@ -7,7 +7,7 @@
 		* 安装 MySQL 开发库
 
 			```
-			# 如果是 Ubuntu，执行
+			# 如果是 Ubuntu，执行：
 			sudo apt-get install libmysqlclient-dev
 
 			# 如果是 CentOS，执行：
