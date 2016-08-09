@@ -5,12 +5,12 @@
 1. 配置服务器
     * MySQL
 		* 安装 MySQL 开发库
-		```
-		如果是 Ubuntu，执行
-		sudo apt-get install libmysqlclient-dev
-		如果是 CentOS，执行：
-		sudo yum install -y  mysql-devel
-		```
+			```
+			如果是 Ubuntu，执行
+			sudo apt-get install libmysqlclient-dev
+			如果是 CentOS，执行：
+			sudo yum install -y  mysql-devel
+			```
     * Python 2.7
     * pip
     * nginx
@@ -74,20 +74,20 @@
 	* 根据需要修改 misc/conf/supervisor.conf 中的内容
 	* 添加配置文件
 
-	``` 
-	cd /etc/supervisor/conf.d
-	ln -s YOUR-PATH/misc/conf/supervisor.conf xinhua.conf
-	 ```
+		``` 
+		cd /etc/supervisor/conf.d
+		ln -s YOUR-PATH/misc/conf/supervisor.conf xinhua.conf
+		 ```
 	* reload config file 或 重启 supervisor 服务
 
 8. 配置 nginx 反代
 	* 根据需要修改 misc/conf/nginx.conf 中的内容（端口、域名、路径）
 	* 添加配置文件
 
-	``` 
-	cd /etc/nginx/conf.d
-	ln -s YOUR-PATH/misc/conf/nginx.conf xinhua.conf
-	nginx -s reload
-	```
+		``` 
+		cd /etc/nginx/conf.d
+		ln -s YOUR-PATH/misc/conf/nginx.conf xinhua.conf
+		nginx -s reload
+		```
 
 至此配置完成，可以根据配置的域名或 IP 访问了。
