@@ -5,10 +5,12 @@
 1. 配置服务器
     * MySQL
 		* 安装 MySQL 开发库
+
 			```
-			如果是 Ubuntu，执行
+			# 如果是 Ubuntu，执行
 			sudo apt-get install libmysqlclient-dev
-			如果是 CentOS，执行：
+
+			# 如果是 CentOS，执行：
 			sudo yum install -y  mysql-devel
 			```
     * Python 2.7
