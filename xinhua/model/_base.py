@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import _env  # noqa
 import hashlib
 from config import MYSQL
 from peewee import Model, MySQLDatabase
@@ -26,9 +27,10 @@ def init_db():
     from model.user import User
     from model.url import URL
     from model.cata import Cata
+    from model.mod_log import ModLog
 
     # 创建表
-    db.create_tables([User, URL, Cata])
+    db.create_tables([User, URL, Cata, ModLog])
 
     # 新建用户
     data = dict(
@@ -43,4 +45,11 @@ def drop_table():
     from model.user import User
     from model.url import URL
     from model.cata import Cata
-    db.drop_tables([User, URL, Cata])
+    from model.mod_log import ModLog
+
+    db.drop_tables([User, URL, Cata, ModLog])
+
+if __name__ == '__main__':
+    from model.mod_log import ModLog
+    db.create_tables([ModLog])
+    # db.create_tables([User, URL, Cata, ModLog])

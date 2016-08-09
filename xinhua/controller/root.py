@@ -2,10 +2,14 @@
 # -*- coding: utf-8 -*-
 
 import _env  # noqa
+
 from _base import BaseHandler, LoginHandler
 from misc._route import route
+
 from model.url import URL
 from model.cata import Cata
+from model.mod_log import ModLog
+
 from service.service import get_template_dict
 
 
@@ -42,14 +46,43 @@ class Url(LoginHandler):
 @route('/url_mgr')
 class UrlMgr(LoginHandler):
     def get(self):
-        url_li = URL.select().order_by(URL.create_time.desc())
-        self.render(url_li=url_li)
+        cata = self.get_argument('cata', None)
+        source = self.get_argument('source', None)
+        limit = int(self.get_argument('limit', 20) or 20)
+        page = int(self.get_argument('page', 1) or 1)
+
+        offset = (page - 1) * limit
+        count = URL.select().count()
+        page_count = count / limit + 1
+
+        url = "{path}?limit={limit}".format(path=self.request.path, page=page, limit=limit)
+        q = URL.select()
+        if cata:
+            q = q.where(URL.cata == cata)
+            url = "{url}&cata={cata}".format(url=url, cata=cata)
+        if source:
+            q = q.where(URL.source == source)
+            url = "{url}&source={source}".format(url=url, source=source)
+
+        url_li = q.order_by(URL.create_time.desc()).offset(offset).limit(limit)
+
+        self.render(url_li=url_li, url_=url,
+                    page_count=page_count,
+                    page=page, count=count,
+                    cata=cata, source=source)
 
 
 @route('/user_mgr')
 class UserMgr(LoginHandler):
     def get(self):
         self.render()
+
+
+@route('/log')
+class Log(LoginHandler):
+    def get(self):
+        li = ModLog.select()
+        self.render(li=li)
 
 
 @route('/logout')

@@ -7,9 +7,13 @@ import math
 
 from _base import JsonBaseHandler
 from misc._route import route
+
+from model._base import db
 from model.url import URL as URL_
 from model.cata import Cata as Cata_
 from model.user import User
+from model.mod_log import ModLog
+
 from service.service import export_report
 
 
@@ -115,27 +119,31 @@ class ViewAddition(JsonBaseHandler):
         li = self.get_argument('li', '')
         li = json.loads(li)
         if li:
-            for o in li:
-                id = o.get('id', '')
-                val = o.get('val', 0)
-                if id and val:
-                    val = int(val)
-                    cata, source = id.split('_')
-                    # 更新总数
-                    cata_ = Cata_.get(Cata_.cata == cata, Cata_.source == source)
-                    cata_.view_ += val
-                    cata_.save()
+            with db.atomic():
+                for o in li:
+                    id = o.get('id', '')
+                    val = o.get('val', 0)
+                    if id and val:
+                        val = int(val)
+                        cata, source = id.split('_')
+                        # 更新总数
+                        cata_ = Cata_.get(Cata_.cata == cata, Cata_.source == source)
+                        cata_.view_ += val
+                        cata_.save()
 
-                    # 更新每个 URL
-                    li_url = URL_.select().where(URL_.cata == cata, URL_.source == source)
-                    if li_url:
-                        per = int(math.ceil(float(val) / float(len(li_url))))
-                        for o in li_url:
-                            o.view_ += per
-                            o.save()
+                        # 更新每个 URL
+                        li_url = URL_.select().where(URL_.cata == cata, URL_.source == source)
+                        if li_url:
+                            per = int(math.ceil(float(val) / float(len(li_url))))
+                            for o in li_url:
+                                o.view_ += per
+                                o.save()
 
-        # 重新生成报表
-        for view in ['view', 'view__']:
-            export_report(view)
+                        # 写 log
+                        ModLog.create(cata=cata, source=source, value=val)
+
+            # 重新生成报表
+            for view in ['view', 'view__']:
+                export_report(view)
 
         self.finish()
