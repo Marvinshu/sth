@@ -52,8 +52,6 @@ class UrlMgr(LoginHandler):
         page = int(self.get_argument('page', 1) or 1)
 
         offset = (page - 1) * limit
-        count = URL.select().count()
-        page_count = count / limit + 1
 
         url = "{path}?limit={limit}".format(path=self.request.path, page=page, limit=limit)
         q = URL.select()
@@ -65,6 +63,9 @@ class UrlMgr(LoginHandler):
             url = "{url}&source={source}".format(url=url, source=source)
 
         url_li = q.order_by(URL.create_time.desc()).offset(offset).limit(limit)
+
+        count = q.count()
+        page_count = count / limit + 1
 
         self.render(url_li=url_li, url_=url,
                     page_count=page_count,
