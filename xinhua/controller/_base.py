@@ -10,9 +10,20 @@ from tornado.escape import json_encode
 
 from config import STATIC_HOST, APP
 from model.user import User
+from model._base import db
 
 
-class Base_(tornado.web.RequestHandler):
+class BaseHandler(tornado.web.RequestHandler):
+    def prepare(self):
+        db.connect()
+        return super(BaseHandler, self).prepare()
+
+    def on_finish(self):
+        if not db.is_closed():
+            db.close()
+
+        return super(BaseHandler, self).on_finish()
+
     def initialize(self):
         template_path = os.path.join(os.path.dirname(__file__), '..', 'template')
         self.lookup = mako.lookup.TemplateLookup(directories=template_path,
@@ -61,13 +72,15 @@ class Base_(tornado.web.RequestHandler):
         return underline_format
 
 
-class Base(Base_):
+class LoginHandler(BaseHandler):
     def prepare(self):
         if not self.current_user:
             self.redirect('/login')
+        else:
+            super(LoginHandler, self).prepare()
 
 
-class JsonBase(tornado.web.RequestHandler):
+class JsonBaseHandler(tornado.web.RequestHandler):
     def get_current_user(self):
         j = self.get_secure_cookie("user")
         return User.from_dict(json.loads(j)) if j else None
@@ -78,4 +91,4 @@ class JsonBase(tornado.web.RequestHandler):
                 data = json_encode(data)
 
             self.set_header('Content-Type', 'application/json; charset=UTF-8')
-        super(JsonBase, self).finish(data)
+        super(JsonBaseHandler, self).finish(data)

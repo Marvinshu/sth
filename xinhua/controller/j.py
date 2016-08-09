@@ -5,7 +5,7 @@ import json
 import hashlib
 import math
 
-from _base import JsonBase
+from _base import JsonBaseHandler
 from misc._route import route
 from model.url import URL as URL_
 from model.cata import Cata as Cata_
@@ -14,7 +14,7 @@ from service.service import export_report
 
 
 @route('/j/login')
-class Login(JsonBase):
+class Login(JsonBaseHandler):
     def post(self):
         user = self.get_argument('username')
         pwd = self.get_argument('password')
@@ -34,7 +34,7 @@ class Login(JsonBase):
 
 
 @route('/j/user/reset_pwd')
-class Pwd(JsonBase):
+class Pwd(JsonBaseHandler):
     def post(self):
         pwd = self.get_argument('pwd')
         new_pwd = self.get_argument('new_pwd')
@@ -60,7 +60,7 @@ class Pwd(JsonBase):
 
 
 @route('/j/url')
-class URL(JsonBase):
+class URL(JsonBaseHandler):
     def post(self):
         url = self.get_argument('url', '')
         if url:
@@ -77,7 +77,7 @@ class URL(JsonBase):
 
 
 @route('/j/url/rm')
-class URL_rm(JsonBase):
+class URL_rm(JsonBaseHandler):
     def post(self):
         id = self.get_argument('id', '')
         if id:
@@ -89,7 +89,7 @@ class URL_rm(JsonBase):
 
 
 @route('/j/cata')
-class Cata(JsonBase):
+class Cata(JsonBaseHandler):
     def post(self):
         cata = self.get_argument('cata', '')
         view = self.get_argument('view', 'view')
@@ -110,7 +110,7 @@ class Cata(JsonBase):
 
 
 @route('/j/view/add')
-class ViewAddition(JsonBase):
+class ViewAddition(JsonBaseHandler):
     def post(self):
         li = self.get_argument('li', '')
         li = json.loads(li)
