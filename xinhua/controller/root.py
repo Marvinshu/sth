@@ -15,7 +15,7 @@ class Login(BaseHandler):
         self.render()
 
 
-@route('/zhimakaimen')
+@route('/report')
 class IndexShow(BaseHandler):
     def get(self):
         d = get_template_dict()
