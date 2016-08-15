@@ -67,15 +67,28 @@ class Pwd(JsonBaseHandler):
 class URL(JsonBaseHandler):
     def post(self):
         url = self.get_argument('url', '')
-        if url:
-            data = {k: ''.join(v) for k, v in self.request.arguments.iteritems()}
-            url_md5 = hashlib.md5(url).hexdigest()
-            data.update(url_md5=url_md5)
-            URL_.create(**data)
+        cata = self.get_argument('cata', '')
+        source = self.get_argument('source', '')
+        try:
+            if url:
+                url_li = url.split()
+                if url_li:
+                    for u in url_li:
+                        title, url_ = u.split(',')
+                        data = dict(
+                            cata=cata,
+                            source=source,
+                            url=url_,
+                            title=title,
+                            url_md5=hashlib.md5(url_).hexdigest()
+                        )
+                        URL_.create(**data)
 
-            ret = dict(result=True)
-        else:
-            ret = dict(result=False, msg="链接不可为空")
+                ret = dict(result=True)
+            else:
+                ret = dict(result=False, msg="链接不可为空")
+        except:
+            ret = dict(result=False, msg="批量链接格式错误")
 
         self.finish(ret)
 
