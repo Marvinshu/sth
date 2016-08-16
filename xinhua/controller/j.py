@@ -71,6 +71,7 @@ class URL(JsonBaseHandler):
         source = self.get_argument('source', '')
         try:
             if url:
+                url = url.replace(' ', '__##__')
                 url_li = url.split()
                 if url_li:
                     for u in url_li:
@@ -79,7 +80,7 @@ class URL(JsonBaseHandler):
                             cata=cata,
                             source=source,
                             url=url_,
-                            title=title,
+                            title=title.replace('__##__', ' '),
                             url_md5=hashlib.md5(url_).hexdigest()
                         )
                         URL_.create(**data)
