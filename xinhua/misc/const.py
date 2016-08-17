@@ -12,7 +12,6 @@ d_source = dict(
     iqiyi=u"爱奇艺",
     youku=u"优酷",
     tengxun=u"腾讯视频",
-    xinhua=u"新华网",
     toutiao=u"今日头条",
     xici=u"西祠胡同",
     xinlang=u"新浪论坛",

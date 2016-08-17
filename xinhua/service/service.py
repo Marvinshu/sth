@@ -63,32 +63,55 @@ def save_statistic():
 
 
 def export_report(view):
-    d = get_template_dict()
-    for cata in Cata.select():
-        d[cata.cata][cata.source] = dict(cata=cata.cata_cn, view=getattr(cata, view))
+    # d = get_template_dict()
+    # for cata in Cata.select():
+    #     d[cata.cata][cata.source] = dict(cata=cata.cata_cn, view=getattr(cata, view))
 
-    header = '#,微博热点,百度文库,百度知道,天涯论坛,爱奇艺,优酷,腾讯视频\n'.encode("gb2312")
+    # 导出汇总表 Deprecated !
+    # header = '#,微博热点,百度文库,百度知道,天涯论坛,爱奇艺,优酷,腾讯视频\n'.encode("gb2312")
+    # path_ = path.join(path.dirname(path.abspath(__file__)), '../static/report/')
+    # fi = '{path}data_{view}.csv'.format(path=path_, view=view)
+    # with open(fi, 'w+') as f:
+    #     f.write(header)
+    #     for k, v in d.iteritems():
+    #         d = dict(
+    #             cata=v.get('weibo').get('cata', ''),
+    #             weibo=v.get('weibo').get('view', ''),
+    #             wenku=v.get('wenku').get('view', ''),
+    #             zhidao=v.get('zhidao').get('view', ''),
+    #             tianya=v.get('tianya').get('view', ''),
+    #             iqiyi=v.get('iqiyi').get('view', ''),
+    #             youku=v.get('youku').get('view', ''),
+    #             tengxun=v.get('tengxun').get('view', '')
+    #         )
+    #         f.write('{cata},{weibo},{wenku},{zhidao},{tianya},{iqiyi},{youku},{tengxun}\n'.format(**d).encode("gb2312"))
+
+    # 导出明细表
+    header = '大类,来源,标题,链接,浏览量,*浏览量\n'
+    s = '{cata},{source},{title},{url},{view},{view__}\n'
+    if view == 'view__':
+        header = '大类,来源,标题,链接,浏览量\n'
+        s = '{cata},{source},{title},{url},{view__}\n'
+
     path_ = path.join(path.dirname(path.abspath(__file__)), '../static/report/')
     fi = '{path}data_{view}.csv'.format(path=path_, view=view)
     with open(fi, 'w+') as f:
-        f.write(header)
-        for k, v in d.iteritems():
+        f.write(header.encode("gb2312"))
+        for url in URL.select().order_by(URL.cata):
             d = dict(
-                cata=v.get('weibo').get('cata', ''),
-                weibo=v.get('weibo').get('view', ''),
-                wenku=v.get('wenku').get('view', ''),
-                zhidao=v.get('zhidao').get('view', ''),
-                tianya=v.get('tianya').get('view', ''),
-                iqiyi=v.get('iqiyi').get('view', ''),
-                youku=v.get('youku').get('view', ''),
-                tengxun=v.get('tengxun').get('view', '')
+                cata=url.cata_cn,
+                source=url.source_cn,
+                title=url.title,
+                url=url.url,
+                view=url.view,
+                view__=url.view__
             )
-            f.write('{cata},{weibo},{wenku},{zhidao},{tianya},{iqiyi},{youku},{tengxun}\n'.format(**d).encode("gb2312"))
+            f.write(s.format(**d).encode("gb2312"))
 
 
 def main():
-    get_url_view_count()
-    save_statistic()
+    # get_url_view_count()
+    # save_statistic()
     for view in ['view', 'view__']:
         export_report(view)
 
