@@ -17,10 +17,10 @@ d_source = OrderedDict(sorted(d_source.items(), key=lambda x: lazy_pinyin(x[1])[
 
 
 d_cata = dict(
-    cata1=u"大师谈",
-    cata2=u"一点通",
-    cata3=u"风采录",
-    cata4=u"分类4",
+    cata1=u"科技前沿大师谈",
+    cata2=u"科学原理一点通",
+    cata3=u"科技名家风采录",
+    cata4=u"科技创新里程碑",
     cata5=u"分类5"
 )
 d_cata = OrderedDict(sorted(d_cata.items(), key=lambda x: lazy_pinyin(x[1])[0]))
