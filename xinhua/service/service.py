@@ -23,7 +23,6 @@ def get_template_dict():
 
 
 def get_url_view_count():
-    data = get_template_dict()
     with open('/var/log/xinhua/xinhua_spider.log', 'a+') as f:
         spider = Spider()
         for url in URL.select():
@@ -33,7 +32,6 @@ def get_url_view_count():
                     view = int(view)
                     url.view = view
                     url.save()
-                    data[url.cata][url.source] += view
             except Exception as e:
                 d = dict(
                     url=url.url,
@@ -48,11 +46,14 @@ def get_url_view_count():
                 f.write(str(e))
                 f.write('\n')
 
-    return data
 
+def save_statistic():
+    data = get_template_dict()
 
-def save_statistic(d):
-    for k, v in d.iteritems():
+    for url in URL.select():
+        data[url.cata][url.source] += url.view
+
+    for k, v in data.iteritems():
         for k1, v1 in v.iteritems():
             cata = Cata.get(Cata.cata == str(k), Cata.source == str(k1))
             if cata:
@@ -86,8 +87,8 @@ def export_report(view):
 
 
 def main():
-    d = get_url_view_count()
-    save_statistic(d)
+    get_url_view_count()
+    save_statistic()
     for view in ['view', 'view__']:
         export_report(view)
 
