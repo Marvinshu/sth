@@ -30,25 +30,27 @@ def init_db():
     from model.mod_log import ModLog
     from misc.const import d_cata, d_source
 
-    # 创建表
-    db.create_tables([User, URL, Cata, ModLog])
+    # # 创建表
+    # db.create_tables([User, URL, Cata, ModLog])
 
-    # 新建用户
-    data = dict(
-        user="admin",
-        name="admin",
-        pwd=hashlib.md5('admin').hexdigest(),
-    )
-    User.create(**data)
+    # # 新建用户
+    # data = dict(
+    #     user="admin",
+    #     name="admin",
+    #     pwd=hashlib.md5('admin').hexdigest(),
+    # )
+    # User.create(**data)
 
     # 创建交叉表
     for k in d_cata.keys():
         for k1 in d_source.keys():
-            d_ = dict(
-                cata=k,
-                source=k1,
-            )
-            Cata.create(**d_)
+            c = Cata.select().where(Cata.cata == k, Cata.source == k1)
+            if not c:
+                d_ = dict(
+                    cata=k,
+                    source=k1,
+                )
+                Cata.create(**d_)
 
 
 def drop_table():
@@ -60,6 +62,4 @@ def drop_table():
     db.drop_tables([User, URL, Cata, ModLog])
 
 if __name__ == '__main__':
-    from model.mod_log import ModLog
-    db.create_tables([ModLog])
-    # db.create_tables([User, URL, Cata, ModLog])
+    init_db()

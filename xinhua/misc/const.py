@@ -12,6 +12,12 @@ d_source = dict(
     iqiyi=u"爱奇艺",
     youku=u"优酷",
     tengxun=u"腾讯视频",
+    xinhua=u"新华网",
+    toutiao=u"今日头条",
+    xici=u"西祠胡同",
+    xinlang=u"新浪论坛",
+    wangyi=u"网易论坛",
+    maopu=u"猫扑大杂烩"
 )
 d_source = OrderedDict(sorted(d_source.items(), key=lambda x: lazy_pinyin(x[1])[0]))
 
