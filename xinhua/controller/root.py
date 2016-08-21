@@ -21,7 +21,7 @@ class Login(BaseHandler):
 
 
 @route('/report')
-class IndexShow(BaseHandler):
+class Report(BaseHandler):
     def get(self):
         d = get_template_dict()
         d_total = defaultdict(int)
