@@ -118,10 +118,16 @@ class Spider():
 
             return int(count.replace(',', ''))
 
+    def wangyi_spider(self, url):
+        ''' 网易论坛爬虫 '''
+        r = requests.get(url)
+        if r.status_code == 200:
+            return int(extract('<span class="red">', '</span> 浏览', r.text))
+
 
 def main():
-    url = 'http://club.history.sina.com.cn/thread-6769950-1-1.html'
-    print Spider().xinlang_spider(url)
+    url = 'http://bbs.news.163.com/bbs/society/615189648.html'
+    print Spider().wangyi_spider(url)
 
 
 if __name__ == '__main__':
