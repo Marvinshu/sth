@@ -4,3 +4,5 @@ MySQL-python
 mako
 requests
 pypinyin
+rsa
+pillow

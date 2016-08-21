@@ -8,6 +8,7 @@ import requests
 import json
 import re
 from extract import extract
+from weibo_login import login
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -16,27 +17,12 @@ sys.setdefaultencoding('utf-8')
 class Spider():
     def weibo_spider(self, url):
         ''' 微博热点话题爬虫 '''
-        cookies = dict(
-            _s_tentry="-",
-            ALF="1471057608",
-            Apache="1626248766746.27.1470452752564",
-            Hm_lvt_b9435dbda402e06581dd35b7fbb6b299="1462168148",
-            login_sid_t="3b3f77bb23781986615fdd72e3843e87",
-            SCF="AvdOId1m5vongD8CTJTzUzwBjrWsF4qL5ZnlbDCNLlJrV4ci2u3Mg-uTKyoSXLU5ZPcRY2KMpRuLqK1g4BV8sTM.",
-            SINAGLOBAL="9691216484643.52.1444141565833",
-            SSOLoginState="1470452813",
-            SUB="_2A256oSQcDeTxGedL41AY-S3JzDiIHXVZ1xLUrDV8PUNbmtBeLVfgkW9WcYcgZ-a-VvfUjmIpQ4EMur0gFA..",
-            SUBP="0033WrSXqPxfM725Ws9jqgMF55529P9D9WWOdsO-lcc6agqe.jwGqFFY5JpX5K2hUgL.Fo2f1hz41KefS0B2dJLoINRLxK-L12-L1-qLxKqL1-BLBK-LxKML1-eL1-qLxKML1-2L1hBLxKqL1-eL1h.LxKnLB.qL1K.LxKBLBo.L1hnLxK.L1K-LB.qLxKML1-2L1hBLxK-LB.-LB--LxK-L12BL1-2LxKqL1KnLBo-LxKMLBKMLBo5LxK-L1K-L122t",
-            SUHB="0QSIVNqPn1akMs",
-            ULV="1470452753567:19:1:1:1626248766746.27.1470452752564:1463831355622",
-            un="tonghuashuai@126.com",
-            UOR="www.pythontab.com,widget.weibo.com,auto.ifeng.com",
-            WBStore="4561a2111a75ddae|undefined",
-            WBtopGlobal_register_version="90c4d37e0334154f",
-        )
+        username = 'tonghuashuai@126.com'
+        password = 'OhMyGod20!@'
+        session = login(username, password)
 
         url = "{url}&retcode=6102".format(url=url)
-        r = requests.get(url, cookies=cookies)
+        r = session.get(url)
 
         if r.status_code == 200:
             p = '<strong class=\\\\"W_f1[0-9]\\\\">(.*?)<\\\/strong>'
@@ -114,8 +100,8 @@ class Spider():
 
 
 def main():
-    url = 'http://wenku.baidu.com/view/135ff9fc1eb91a37f1115cab'
-    print Spider().wenku_spider(url)
+    url = 'http://weibo.com/p/100808dc16b2f5eb002e9558b916f31b59cb6a?k=%E4%B8%80%E5%9D%97%E6%8A%95%E5%90%A7&from=501&_from_=huati_topic'
+    print Spider().weibo_spider(url)
 
 
 if __name__ == '__main__':
