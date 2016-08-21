@@ -7,7 +7,8 @@ from os import path
 from model.url import URL
 from model.cata import Cata
 from spider import Spider
-from misc.const import d_cata, d_source
+from collections import OrderedDict
+from misc.const import d_cata, d_source, d_cata_sort
 
 
 def get_template_dict():
@@ -19,7 +20,7 @@ def get_template_dict():
 
         d_ret[k] = d_
 
-    return d_ret
+    return OrderedDict(sorted(d_ret.items(), key=lambda x: d_cata_sort.get(x[0])))
 
 
 def get_url_view_count():

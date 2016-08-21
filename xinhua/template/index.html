@@ -41,19 +41,18 @@
                                 <table class="table table-bordered table-hover table-striped">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>项目名称</th>
                                             <th>微博热点</th>
-                                            <th>百度文库</th>
-                                            <th>百度知道</th>
-                                            <th>天涯论坛</th>
-                                            <th>爱奇艺</th>
+                                            <th>今日头条</th>
                                             <th>优酷</th>
                                             <th>腾讯视频</th>
-                                            <th>今日头条</th>
-                                            <th>西祠胡同</th>
+                                            <th>微信</th>
+                                            <th>百度文库</th>
+                                            <th>百度知道</th>
                                             <th>新浪论坛</th>
                                             <th>网易论坛</th>
-                                            <th>猫扑大杂烩</th>
+                                            <th>西祠胡同</th>
+                                            <th>合计</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -66,47 +65,43 @@
                                             </td>
                                             <td>
                                                 <input class="txt-mod" id="${k}_wenku"> | 
-                                                ${v.get('wenku').get('view', '')}
-                                            </td>
-                                            <td>
-                                                <input class="txt-mod" id="${k}_zhidao"> | 
-                                                ${v.get('zhidao').get('view', '')}
-                                            </td>
-                                            <td>
-                                                <input class="txt-mod" id="${k}_tianya"> | 
-                                                ${v.get('tianya').get('view', '')}
-                                            </td>
-                                            <td>
-                                                <input class="txt-mod" id="${k}_iqiyi"> | 
-                                                ${v.get('iqiyi').get('view', '')}
-                                            </td>
-                                            <td>
-                                                <input class="txt-mod" id="${k}_youku"> | 
-                                                ${v.get('youku').get('view', '')}
-                                            </td>
-                                            <td>
-                                                <input class="txt-mod" id="${k}_tengxun"> | 
-                                                ${v.get('tengxun').get('view', '')}
-                                            </td>
-                                            <td>
-                                                <input class="txt-mod" id="${k}_toutiao"> | 
                                                 ${v.get('toutiao').get('view', '')}
                                             </td>
                                             <td>
-                                                <input class="txt-mod" id="${k}_xici"> | 
-                                                ${v.get('xici').get('view', '')}
+                                                <input class="txt-mod" id="${k}_zhidao"> | 
+                                                ${v.get('youku').get('view', '')}
                                             </td>
                                             <td>
-                                                <input class="txt-mod" id="${k}_xinlang"> | 
+                                                <input class="txt-mod" id="${k}_tianya"> | 
+                                                ${v.get('tengxun').get('view', '')}
+                                            </td>
+                                            <td>
+                                                <input class="txt-mod" id="${k}_iqiyi"> | 
+                                                ${v.get('weixin').get('view', '')}
+                                            </td>
+                                            <td>
+                                                <input class="txt-mod" id="${k}_youku"> | 
+                                                ${v.get('wenku').get('view', '')}
+                                            </td>
+                                            <td>
+                                                <input class="txt-mod" id="${k}_tengxun"> | 
+                                                ${v.get('zhidao').get('view', '')}
+                                            </td>
+                                            <td>
+                                                <input class="txt-mod" id="${k}_toutiao"> | 
                                                 ${v.get('xinlang').get('view', '')}
                                             </td>
                                             <td>
-                                                <input class="txt-mod" id="${k}_wangyi"> | 
+                                                <input class="txt-mod" id="${k}_xici"> | 
                                                 ${v.get('wangyi').get('view', '')}
                                             </td>
                                             <td>
-                                                <input class="txt-mod" id="${k}_maopu"> | 
-                                                ${v.get('maopu').get('view', '')}
+                                                <input class="txt-mod" id="${k}_xinlang"> | 
+                                                ${v.get('xici').get('view', '')}
+                                            </td>
+                                            <td>
+                                                ## <input class="txt-mod" id="${k}_xinlang"> | 
+                                                ## ${v.get('xici').get('view', '')}
                                             </td>
                                         </tr>
                                         % endfor

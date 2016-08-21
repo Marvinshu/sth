@@ -8,7 +8,7 @@ import mako.template
 import tornado.web
 from tornado.escape import json_encode
 
-from config import STATIC_HOST, APP
+from config import STATIC_HOST, APP, SLOGAN
 from model.user import User
 from model._base import db
 
@@ -45,6 +45,7 @@ class BaseHandler(tornado.web.RequestHandler):
             kwargs.update(load_js=self.load_js)
             kwargs.update(load_css=self.load_css)
             kwargs.update(APP=APP)
+            kwargs.update(SLOGAN=SLOGAN)
 
         self.finish(self.render_string(filename, **kwargs))
 

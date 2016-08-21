@@ -60,6 +60,18 @@ a:hover{
     line-height: 18px;
 }
 
+.sidebar {
+    margin-top: 65px;
+}
+
+#slogan {
+    font-size: 12px;
+}
+
+.navbar-brand {
+    height: 65px;
+}
+
 /********* animation *******/
 @keyframes fadein {
     from {

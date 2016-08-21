@@ -34,6 +34,7 @@ class Index(LoginHandler):
         d = get_template_dict()
         for cata in Cata.select():
             d[cata.cata][cata.source] = dict(cata=cata.cata_cn, view=cata.view)
+
         self.render(data=d)
 
 
