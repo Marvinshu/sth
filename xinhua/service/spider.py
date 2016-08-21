@@ -90,7 +90,7 @@ class Spider():
 
     def tengxun_spider(self, url):
         ''' 腾讯视频爬虫 '''
-        r = requests.get(url, )
+        r = requests.get(url)
         if r.status_code == 200:
             count = extract('class="num">', "</em>", r.text)
 
@@ -110,10 +110,18 @@ class Spider():
                     break
         return count
 
+    def xinlang_spider(self, url):
+        ''' 新浪论坛爬虫 '''
+        r = requests.get(url)
+        if r.status_code == 200:
+            count = extract('<font color="#ff0000"> ', '</font>', r.text)
+
+            return int(count.replace(',', ''))
+
 
 def main():
-    url = 'http://v.youku.com/v_show/id_XMTYyMDE1NzMwMA==.html?from=y1.2-1-85.3.5-2.1-1-1-4-0'
-    print Spider().youku_spider(url)
+    url = 'http://club.history.sina.com.cn/thread-6769950-1-1.html'
+    print Spider().xinlang_spider(url)
 
 
 if __name__ == '__main__':
