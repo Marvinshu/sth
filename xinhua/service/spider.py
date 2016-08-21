@@ -124,6 +124,10 @@ class Spider():
         if r.status_code == 200:
             return int(extract('<span class="red">', '</span> 浏览', r.text))
 
+    def xici_spider(self, url):
+        ''' 西祠胡同爬虫 '''
+        return 0
+
 
 def main():
     url = 'http://bbs.news.163.com/bbs/society/615189648.html'
