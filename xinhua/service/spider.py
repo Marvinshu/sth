@@ -70,11 +70,23 @@ class Spider():
 
     def youku_spider(self, url):
         ''' 优酷视频爬虫 '''
-        url_ = "https://openapi.youku.com/v2/videos/show_basic.json?video_url={url}&client_id=66655b02396537f4".format(url=url)
-        r = requests.get(url_)
+        if '?' in url:
+            url = '{url}&beta&'.format(url=url)
+        else:
+            url = '{url}?beta&'.format(url=url)
+
+        r = requests.get(url)
+        vid = 0
         if r.status_code == 200:
-            data = json.loads(r.text)
-            return data.get('view_count', 0)
+            vid = extract('videoId:"', '"', r.text)
+
+        if vid:
+            url_ = 'http://v.youku.com/action/getVideoPlayInfo?beta&vid={vid}'.format(vid=vid)
+            r = requests.get(url_)
+            if r.status_code == 200:
+                data = json.loads(r.text)
+                vv = data.get('data', dict()).get('stat', dict()).get('vv', 0)
+                return int(vv.replace(',', ''))
 
     def tengxun_spider(self, url):
         ''' 腾讯视频爬虫 '''
@@ -100,8 +112,8 @@ class Spider():
 
 
 def main():
-    url = 'http://weibo.com/p/100808dc16b2f5eb002e9558b916f31b59cb6a?k=%E4%B8%80%E5%9D%97%E6%8A%95%E5%90%A7&from=501&_from_=huati_topic'
-    print Spider().weibo_spider(url)
+    url = 'http://v.youku.com/v_show/id_XMTYyMDE1NzMwMA==.html?from=y1.2-1-85.3.5-2.1-1-1-4-0'
+    print Spider().youku_spider(url)
 
 
 if __name__ == '__main__':
