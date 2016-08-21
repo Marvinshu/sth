@@ -3,6 +3,7 @@
 
 import _env  # noqa
 
+from collections import defaultdict
 from _base import BaseHandler, LoginHandler
 from misc._route import route
 
@@ -23,19 +24,25 @@ class Login(BaseHandler):
 class IndexShow(BaseHandler):
     def get(self):
         d = get_template_dict()
+        d_total = defaultdict(int)
+
         for cata in Cata.select():
             d[cata.cata][cata.source] = dict(cata=cata.cata_cn, view=cata.view__)
-        self.render(data=d)
+            d_total[cata.cata] += cata.view__
+        self.render(data=d, d_total=d_total)
 
 
 @route('/')
 class Index(LoginHandler):
     def get(self):
         d = get_template_dict()
+        d_total = defaultdict(int)
+
         for cata in Cata.select():
             d[cata.cata][cata.source] = dict(cata=cata.cata_cn, view=cata.view)
+            d_total[cata.cata] += cata.view
 
-        self.render(data=d)
+        self.render(data=d, d_total=d_total)
 
 
 @route('/url')

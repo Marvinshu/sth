@@ -52,7 +52,10 @@ def save_statistic():
     data = get_template_dict()
 
     for url in URL.select():
-        data[url.cata][url.source] += url.view
+        try:
+            data[url.cata][url.source] += url.view
+        except:
+            pass
 
     for k, v in data.iteritems():
         for k1, v1 in v.iteritems():
@@ -111,8 +114,8 @@ def export_report(view):
 
 
 def main():
-    # get_url_view_count()
-    # save_statistic()
+    get_url_view_count()
+    save_statistic()
     for view in ['view', 'view__']:
         export_report(view)
 
